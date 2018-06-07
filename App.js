@@ -10,6 +10,7 @@ export default class App extends Component<Props> {
     places: ["test"]
   }
 
+
   placeNameChangedHandler = val => {
     this.setState({
       placeName : val
@@ -31,6 +32,16 @@ export default class App extends Component<Props> {
     });
   };
 
+  placeDeletedHandler = index => {
+    this.setState(prevState => {
+      return{
+        places: prevState.places.filter((prevState, i) =>{
+          return i !== index;
+        })
+      };
+    });
+  }
+
   render() {
 
     return (
@@ -48,7 +59,9 @@ export default class App extends Component<Props> {
             onPress = {this.placeSubmitHandler}
             />
         </View>
-        <PlaceList places= {this.state.places} />
+        <PlaceList
+          places= {this.state.places}
+          onItemDeleted={this.placeDeletedHandler} />
       </View>
     );
   }
